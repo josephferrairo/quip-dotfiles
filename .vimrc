@@ -18,6 +18,41 @@ Plug 'https://github.com/kien/ctrlp.vim.git'
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+if executable('matcher')
+  let g:ctrlp_match_func = { 'match': 'GoodMatch' }
+
+  function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
+
+    " Create a cache file if not yet exists
+    let cachefile = ctrlp#utils#cachedir().'/matcher.cache'
+    if !( filereadable(cachefile) && a:items == readfile(cachefile) )
+      call writefile(a:items, cachefile)
+    endif
+    if !filereadable(cachefile)
+      return []
+    endif
+
+    " a:mmode is currently ignored. In the future, we should probably do
+    " something about that. the matcher behaves like "full-line".
+    let cmd = 'matcher --limit '.a:limit.' --manifest '.cachefile.' '
+    if !( exists('g:ctrlp_dotfiles') && g:ctrlp_dotfiles )
+      let cmd = cmd.'--no-dotfiles '
+    endif
+    let cmd = cmd.a:str
+
+    return split(system(cmd), "\n")
+
+  endfunction
+end
 Plug 'https://github.com/rking/ag.vim.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/ntpeters/vim-better-whitespace.git'
@@ -138,10 +173,8 @@ set clipboard=unnamed
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
 set softtabstop=2
-set tabstop=2
-set expandtab
+set tabstop=2 shiftwidth=2 expandtab
 
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
