@@ -3,17 +3,43 @@ filetype off                  " required
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
-
 " Make sure you use single quotes
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/tpope/vim-rails.git'
 Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin.git'
 Plug 'https://github.com/adelarsq/vim-matchit.git'
 
-Plug 'https://github.com/vim-airline/vim-airline.git'
-set laststatus=2 " Always Display vim-airline
+"
+Plug 'dense-analysis/ale'
+let g:ale_linters = {
+      \   'ruby': ['rubocop']
+      \}
+Plug 'https://github.com/itchyny/lightline.vim.git'
+Plug 'https://github.com/maximbaz/lightline-ale.git'
+let g:ale_set_highlights = 0
+let g:ale_sign_column_always = 1
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ }
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
+" Ctags
+Plug 'ludovicchabant/vim-gutentags'
 
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -27,32 +53,6 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-if executable('matcher')
-  let g:ctrlp_match_func = { 'match': 'GoodMatch' }
-
-  function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
-
-    " Create a cache file if not yet exists
-    let cachefile = ctrlp#utils#cachedir().'/matcher.cache'
-    if !( filereadable(cachefile) && a:items == readfile(cachefile) )
-      call writefile(a:items, cachefile)
-    endif
-    if !filereadable(cachefile)
-      return []
-    endif
-
-    " a:mmode is currently ignored. In the future, we should probably do
-    " something about that. the matcher behaves like "full-line".
-    let cmd = 'matcher --limit '.a:limit.' --manifest '.cachefile.' '
-    if !( exists('g:ctrlp_dotfiles') && g:ctrlp_dotfiles )
-      let cmd = cmd.'--no-dotfiles '
-    endif
-    let cmd = cmd.a:str
-
-    return split(system(cmd), "\n")
-
-  endfunction
-end
 Plug 'https://github.com/rking/ag.vim.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/ntpeters/vim-better-whitespace.git'
@@ -121,27 +121,16 @@ Plug 'https://github.com/mxw/vim-jsx.git'
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
 
-
-" JS Linting
-Plug 'neomake/neomake'
-let g:neomake_javascript_enabled_makers = ['eslint']
-" Plug 'https://github.com/w0rp/ale.git'
-" let g:airline#extensions#aleenabled = 1
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
 let g:sql_type_default = "sqlserver"
 " Set .arb to Ruby
 autocmd BufRead,BufNewFile *.arb setfiletype ruby
 "Current syntax is gruvbox
 Plug 'https://github.com/morhetz/gruvbox.git'
+Plug 'https://github.com/nanotech/jellybeans.vim.git'
 Plug 'https://github.com/sheerun/vim-polyglot.git'
 Plug 'fgsch/vim-varnish'
 " All of your Plugins must be added before the following line
 call plug#end()
-" enable neomake
-call neomake#configure#automake('nrwi', 500)
 
 filetype plugin indent on    " required
 colorscheme gruvbox
@@ -149,8 +138,8 @@ let g:gruvbox_contrast_dark = 'hard'
 set background=dark " Setting dark mode
 set t_Co=256
 " syntax on
-:syntax on
-:syntax enable
+
+" :syntax enable
 " numbers on
 :set number
 :set relativenumber
@@ -172,8 +161,8 @@ set clipboard=unnamed
 
 set autoindent
 set smartindent
-set smarttab
-set softtabstop=2
+" set smarttab
+" set softtabstop=2
 set tabstop=2 shiftwidth=2 expandtab
 
 " Auto indent pasted text
@@ -184,7 +173,9 @@ filetype plugin on
 filetype indent on
 " default syntax is ruby
 " To ignore plugin indent changes, instead use:
-"NeoVim true color on
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 highlight Comment gui=italic
 highlight Comment cterm=italic
+:syntax on
+"NeoVim true color on
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
