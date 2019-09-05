@@ -8,12 +8,14 @@ Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/tpope/vim-rails.git'
 Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin.git'
 Plug 'https://github.com/adelarsq/vim-matchit.git'
+Plug 'https://github.com/elzr/vim-json.git'
+Plug 'https://github.com/shime/vim-livedown.git'
 
 "
 Plug 'dense-analysis/ale'
-let g:ale_linters = {
-      \   'ruby': ['rubocop']
-      \}
+" let g:ale_linters = {
+      " \   'ruby': ['rubocop']
+      " \}
 Plug 'https://github.com/itchyny/lightline.vim.git'
 Plug 'https://github.com/maximbaz/lightline-ale.git'
 let g:ale_set_highlights = 0
@@ -35,7 +37,7 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+let g:lightline.active = { 'right': [ ['percent'], [ 'fileformat', 'fileencoding', 'filetype'], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
 " Ctags
