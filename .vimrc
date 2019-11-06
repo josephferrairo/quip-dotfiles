@@ -9,9 +9,9 @@ Plug 'https://github.com/tpope/vim-rails.git'
 Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin.git'
 Plug 'https://github.com/adelarsq/vim-matchit.git'
 Plug 'https://github.com/elzr/vim-json.git'
-Plug 'https://github.com/shime/vim-livedown.git'
+Plug 'https://github.com/ngmy/vim-rubocop.git'
+Plug 'tarekbecker/vim-yaml-formatter'
 
-"
 Plug 'dense-analysis/ale'
 " let g:ale_linters = {
       " \   'ruby': ['rubocop']
@@ -76,7 +76,7 @@ Plug 'https://github.com/vim-ruby/vim-ruby.git'
 Plug 'https://github.com/tpope/vim-haml.git'
 Plug 'https://github.com/stephpy/vim-yaml.git'
 Plug 'https://github.com/ervandew/supertab.git'
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 Plug 'https://github.com/tpope/vim-endwise.git'
 Plug 'https://github.com/Raimondi/delimitMate.git'
 Plug 'https://github.com/pangloss/vim-javascript.git'
@@ -131,6 +131,7 @@ Plug 'https://github.com/morhetz/gruvbox.git'
 Plug 'https://github.com/nanotech/jellybeans.vim.git'
 Plug 'https://github.com/sheerun/vim-polyglot.git'
 Plug 'fgsch/vim-varnish'
+Plug 'https://github.com/vim-scripts/RDoc.git'
 " All of your Plugins must be added before the following line
 call plug#end()
 
@@ -143,22 +144,23 @@ set t_Co=256
 
 " :syntax enable
 " numbers on
-:set number
-:set relativenumber
+set number
+set relativenumber
 " highlight search results
-:set hlsearch
+set hlsearch
 " ignore case when searching
-:set ignorecase
+set ignorecase
 " underline current line
-:set cursorline
-:hi cursorlinenr gui=underline cterm=underline
+set cursorline
+set ttyfast
+hi cursorlinenr gui=underline cterm=underline
 " Can Copy and Paste from system clipboard
 set clipboard=unnamed
 " Comment with ctl + c and Uncomment with ctl + T
 "map <C-C> :s:^:#<CR>
 "map <C-T> :s:^#<CR>
 " Allow navigating in and out of :terminal
-:tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 " ================ Indentation ======================
 
 set autoindent
