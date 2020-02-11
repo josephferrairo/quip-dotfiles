@@ -5,7 +5,7 @@ source ~/.aliases
 # source ~/.secrets
 ZSH_THEME="robbyrussell"
 
-plugins=(git rails ruby bundler sudo zsh-autosuggestions command-time)
+plugins=(git ruby rails bundler sudo zsh-autosuggestions command-time)
 source ~/.oh-my-zsh/oh-my-zsh.sh
 eval "$(rbenv init -)"
 source /Users/josephferrairo/Desktop/Code/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -11,6 +11,9 @@ Plug 'https://github.com/adelarsq/vim-matchit.git'
 Plug 'https://github.com/elzr/vim-json.git'
 Plug 'https://github.com/ngmy/vim-rubocop.git'
 Plug 'tarekbecker/vim-yaml-formatter'
+Plug 'sbdchd/neoformat'
+" Run prettier on save
+autocmd BufWritePre *.js Neoformat
 
 Plug 'dense-analysis/ale'
 " let g:ale_linters = {
@@ -20,6 +23,11 @@ Plug 'https://github.com/itchyny/lightline.vim.git'
 Plug 'https://github.com/maximbaz/lightline-ale.git'
 let g:ale_set_highlights = 0
 let g:ale_sign_column_always = 1
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fix_on_save = 1
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ }
@@ -99,7 +107,7 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 " Ignore some folders and files for CtrlP indexing
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_user_command = ['.git/', '/spec/cassettes/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " The Silver Searcher
 if executable('ag')
