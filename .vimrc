@@ -45,7 +45,9 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 
-let g:lightline.active = { 'right': [ ['percent'], [ 'fileformat', 'fileencoding', 'filetype'], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+let g:lightline.active = {
+              \ 'right': [ ['percent'], [ 'fileformat', 'fileencoding', 'filetype'],
+              \ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
 " Ctags
