@@ -24,3 +24,4 @@ function migration_touch() {
 }
 
 export THOR_MERGE="nvim -d"
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"

@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+set termguicolors
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -29,7 +32,7 @@ let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_fix_on_save = 1
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'nightfly',
       \ }
 
 let g:lightline.component_expand = {
@@ -193,6 +196,7 @@ let g:sql_type_default = "sqlserver"
 autocmd BufRead,BufNewFile *.arb setfiletype ruby
 "Current syntax is gruvbox
 Plug 'https://github.com/morhetz/gruvbox.git'
+Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'https://github.com/nanotech/jellybeans.vim.git'
 Plug 'https://github.com/sheerun/vim-polyglot.git'
 Plug 'fgsch/vim-varnish'
@@ -247,4 +251,3 @@ highlight Comment gui=italic
 highlight Comment cterm=italic
 :syntax on
 "NeoVim true color on
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
